@@ -8,6 +8,8 @@
       <h2 class="subtitle">
         Здесь какой-то текст
       </h2>
+      <div>На счету: {{ money | formatMoney }}</div>
+      <div>Дата: {{ now | formatDate }}</div>
       <div class="links">
         <nuxt-link to="/" class="button--green">Вернуться на главную</nuxt-link>
       </div>
@@ -22,11 +24,30 @@ export default {
   components: {
     Logo
   },
+  data() {
+    return {
+      money: 100500.12,
+      now: new Date('2019-01-01'),
+    };
+  },
   head() {
     return {
       title: 'Страница о компании'
     }
-  }
+  },
+  filters: {
+    formatMoney(val) {
+      return new Intl.NumberFormat('ru-RU').format(val);
+    },
+    formatDate(val) {
+      const date = new Date(val);
+      let d = date.getDate();
+      let m = date.getMonth() + 1;
+      let y = date.getFullYear();
+
+      return `${d}.`.padStart(3, '0') + `${m}.`.padStart(3, '0') + `${y}`;
+    }
+  },
 }
 </script>
 

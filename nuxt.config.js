@@ -23,7 +23,9 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: [
+    'assets/test.css'
+  ],
   /*
    ** Plugins to load before mounting the App
    */
@@ -64,6 +66,20 @@ export default {
         '/catalog/1',
         '/catalog/2',
       ]
+    },
+  },
+  transition: {
+    beforeEnter() {
+      document.body.style.overflow = 'hidden';
+    },
+    afterEnter() {
+      document.body.style.overflow = null;
+    },
+    beforeLeave() {
+      document.body.style.overflow = 'hidden';
+    },
+    afterLeave() {
+      document.body.style.overflow = null;
     },
   },
 }
