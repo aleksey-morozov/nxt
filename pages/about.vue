@@ -13,6 +13,10 @@
       <div class="links">
         <nuxt-link to="/" class="button--green">Вернуться на главную</nuxt-link>
       </div>
+      <hr>
+      <div class="text" v-linkify >
+        {{ text }}
+      </div>
     </div>
   </div>
 </template>
@@ -28,6 +32,7 @@ export default {
     return {
       money: 100500.12,
       now: new Date('2019-01-01'),
+      text: `Это пример текста. Тут есть всякое: http://vk.com/`
     };
   },
   head() {
@@ -46,6 +51,17 @@ export default {
       let y = date.getFullYear();
 
       return `${d}.`.padStart(3, '0') + `${m}.`.padStart(3, '0') + `${y}`;
+    }
+  },
+  directives:  {
+    linkify: {
+      // этот хук выполняется только один раз когда директива применяется к элементу
+      // элемент здесь это ссылка на DOM-элемент того компонента или тега, к которому применена директива
+      bind(el) {
+        el.style.border = "3px solid red";
+        el.innerHTML = el.innerHTML
+          .replace(/(https?:\/\/[-a-z0-9]+\.[a-z]{2,6}([\w/]+)?)?/ig, `<a href="$1">$1</a>`);
+      },
     }
   },
 }
